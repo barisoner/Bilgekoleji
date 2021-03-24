@@ -24,15 +24,28 @@ namespace StuWare.Data
         public DbSet<User> User { get; set; }
         public DbSet<Panel> Panel { get; set; }
 
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.Entity<User>().HasData(
-        //     new User { Username = "Admin", Password = "123", Email = "admin@stuware.com", LastLoginTime = DateTime.Now },
-        //     new User { Username = "User1", Password = "123", Email = "user1@stuware.com", LastLoginTime = DateTime.Now },
-        //    new User { Username = "User2", Password = "123", Email = "user2@stuware.com", LastLoginTime = DateTime.Now });
-        //    //https://www.learnentityframeworkcore.com/migrations/seeding
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<City>().HasData(
+             new City { ID = 34, Name = "İstanbul" },
+            new City { ID = 41, Name = "Kocaeli" }
+             );
 
-        //}
+
+            modelBuilder.Entity<District>().HasData(
+             new District { ID = 1, Name = "İzmit", CityID = 41 },
+             new District { ID = 2, Name = "Değirmendere", CityID = 41 },
+             new District { ID = 3, Name = "Karamürsel", CityID = 41 },
+             new District { ID = 4, Name = "Gölcük", CityID = 41 },
+              new District { ID = 5, Name = "Kadıköy", CityID = 34 },
+              new District { ID = 6, Name = "Bostancı", CityID = 34 },
+              new District { ID = 7, Name = "Taksim", CityID = 34 },
+              new District { ID = 8, Name = "Maltepe", CityID = 34 }
+            
+             );
+            
+
+        }
 
 
     }

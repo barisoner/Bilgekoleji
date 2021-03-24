@@ -1,0 +1,46 @@
+﻿@model Teacher
+
+<div class="container">
+    <h2>Yeni Öğretmen Ekleme</h2>
+    <br />
+
+    <form asp-controller="Teacher" asp-action="Create" method="post">
+
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label">Ad</label> <span asp-validation-for="Name" class="text-danger"></span>
+            <input asp-for="Name" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="LastName" class="form-label">SoyAd</label> <span asp-validation-for="LastName" class="text-danger"></span>
+            <input asp-for="LastName" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Sex" class="form-label">Cinsiyet</label>
+            <select class="form-control">
+                <option disabled selected value="">Cinsiyet Seçin</option>
+                <option value=1>Kız</option>
+                <option value=2>Erkek</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Task" class="form-label">Görev</label> <span asp-validation-for="Task" class="text-danger"></span>
+            <input asp-for="Task" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Branch" class="form-label">Şube</label> <span asp-validation-for="Branch" class="text-danger"></span>
+            <input asp-for="Branch" class="form-control">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Kaydet</button>
+
+    </form>
+
+</div>
+
+

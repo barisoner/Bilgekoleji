@@ -1,0 +1,33 @@
+﻿@model StudentLessonGrade
+
+<div class="container">
+
+    <h2> Not </h2>
+    <br />
+
+    <form asp-controller="Grade" asp-action="Create" method="post">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label">Not Adı</label> <span asp-validation-for="Name" class="text-danger"></span>
+            <input asp-for="Name" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Period" class="form-label">Dönem</label> <span asp-validation-for="Period" class="text-danger"></span>
+            <input asp-for="Period" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Grade" class="form-label">Not</label> <span asp-validation-for="Grade" class="text-danger"></span>
+            <input asp-for="Grade" class="form-control">
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">Kaydet</button>
+
+    </form>
+
+</div>
+

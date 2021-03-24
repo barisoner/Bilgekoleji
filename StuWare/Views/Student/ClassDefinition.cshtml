@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Lesson>
+
+<table class="table">
+    <thead class="table-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">DersAdı</th>
+            <th scope="col">Sınıf</th>
+            <th scope="col">Ders Ata</th>
+            <th scope="col">Sil</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <th scope="row">@item.ID</th>
+            <td>@item.Name</td>
+            <td>@item.Class</td>
+
+            @if (!(ViewBag.SelectedClassLists as List<int>).Contains(item.ID))
+            {
+                <td>
+
+                    <a asp-action="ClassDefinitionExec" asp-controller="Student" asp-route-id="@item.ID" asp-route-studentId="@Context.Request.Query["id"]">
+                        Dersi Ata
+                    </a>
+                </td>
+
+            }
+            else
+            {
+                <td>
+                    Bu ders atanmıştır.
+                </td>
+            }
+        </tr>
+        }
+    </tbody>
+</table>
+
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <a class="btn btn-primary me-md-2" type="button" asp-action="Create" asp-controller="Lesson">Yeni Ders Ekle</a>
+</div>

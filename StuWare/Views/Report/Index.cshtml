@@ -1,0 +1,103 @@
+﻿@model IEnumerable<StudentLesson>
+
+<style type="text/css">
+    html {
+        font-family: arial;
+        font-size: 18px;
+    }
+
+    td {
+        border: 1px solid #726E6D;
+        padding: 15px;
+    }
+
+    thead {
+        font-weight: bold;
+        text-align: center;
+        background: #625D5D;
+        color: white;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    .footer {
+        text-align: right;
+        font-weight: bold;
+    }
+
+    tbody > tr:nth-child(odd) {
+        background: #D1D0CE;
+    }
+</style>
+<table class="table">
+
+    <thead>
+        <tr>
+            <td colspan="3">Atanmış Dersler </td>
+
+            <td rowspan="2"> Puan </td>
+            <td rowspan="2"> Not </td>
+        </tr>
+        <tr>
+            <td>Numarası </td>
+            <td colspan="2"> Ders Adı </td>
+
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Lesson.ID </td>
+                <td colspan="2">@item.Lesson.Name </td>
+                @if (@item.StudentLessonGrade.Count > 0)
+                {
+                    <td> @item.StudentLessonGrade.Average(item => item.Grade) </td>
+                }
+                else
+                {
+                    <td> N/A </td>
+
+                }
+                @if (@item.StudentLessonGrade.Count > 0)
+                {
+                    @if (@item.StudentLessonGrade.Average(item => item.Grade) > 85)
+                    {
+                        <td>5</td>
+                    }
+                    else if (@item.StudentLessonGrade.Average(item => item.Grade) > 70)
+                    {
+                        <td>4</td>
+                    }
+                    else if (@item.StudentLessonGrade.Average(item => item.Grade) > 55)
+                    {
+                        <td>3</td>
+                    }
+                    else if (@item.StudentLessonGrade.Average(item => item.Grade) > 45)
+                    {
+                        <td>2</td>
+                    }
+                    else
+                    {
+                        <td>1</td>
+                    }
+                }
+                else
+                {
+                    <td> N/A </td>
+                }
+            </tr>
+
+        }
+    </tbody>
+
+    <tfoot>
+        <tr>
+            <td colspan="4" class="footer">Total</td>
+            <td> @ViewBag.Grade </td>
+        </tr>
+</table>
+

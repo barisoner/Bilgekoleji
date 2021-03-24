@@ -1,0 +1,111 @@
+﻿@model Student
+
+<div class="container">
+
+    <h2>Öğrenci Detay Ekranı - @Model.Name @Model.LastName</h2>
+    <br />
+
+    <form asp-controller="Student" asp-action="Details" method="post">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="mb-3">
+            <label asp-for="ID" class="form-label">No</label>
+            <input asp-for="ID" readonly="readonly" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label">Ad</label> <span asp-validation-for="Name" class="text-danger"></span>
+            <input asp-for="Name" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="LastName" class="form-label">Soyad</label> <span asp-validation-for="LastName" class="text-danger"></span>
+            <input asp-for="LastName" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Sex" class="form-label">Cinsiyet</label> <span asp-validation-for="Sex" class="text-danger"></span>
+            <select asp-for="Sex" class="form-control">
+                <option disabled selected value="">Cinsiyet Seçin</option>
+                <option value="False">Kız</option>
+                <option value="True">Erkek</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="LastSchool" class="form-label">Önceki Okul Adı</label> <span asp-validation-for="LastSchool" class="text-danger"></span>
+            <input asp-for="LastSchool" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="GradeAverage" class="form-label">Not Ortalaması</label> <span asp-validation-for="GradeAverage" class="text-danger"></span>
+            <input asp-for="GradeAverage" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="ClassYear" class="form-label">Sınıf Yılı</label> <span asp-validation-for="ClassYear" class="text-danger"></span>
+            <input asp-for="ClassYear" type="number" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="GuardianName" class="form-label">Veli Adı</label> <span asp-validation-for="GuardianName" class="text-danger"></span>
+            <input asp-for="GuardianName" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="GuardianLastName" class="form-label">Veli Soyadı</label> <span asp-validation-for="GuardianLastName" class="text-danger"></span>
+            <input asp-for="GuardianLastName" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="GuardianCellPhone" class="form-label">Veli Tel NO.</label> <span asp-validation-for="GuardianCellPhone" class="text-danger"></span>
+            <input asp-for="GuardianCellPhone" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="GuardianPhone" class="form-label">Veli Ev Tel NO.</label> <span asp-validation-for="GuardianPhone" class="text-danger"></span>
+            <input asp-for="GuardianPhone" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="GuardianAddress" class="form-label">Veli Adresi</label> <span asp-validation-for="GuardianAddress" class="text-danger"></span>
+            <input asp-for="GuardianAddress" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="District.City" class="form-label">Şehir</label>
+            <select asp-for="District.City.ID" class="form-control" id="CityID" name="CityID" asp-items="@(new SelectList(@ViewBag.ListOfCities,"ID","Name"))">
+                <option disabled selected value="">Seçin</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="DistrictID" class="form-label">Bölge</label>
+            <select asp-for="DistrictID" class="form-control" id="DistrictID" name="DistrictID">
+                <option disabled selected value="">Seçin</option>
+            </select>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">Güncelle</button>
+    </form>
+
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#CityID').change(function () {
+            var url = '@Url.Content("~/")' + 'Student/GetDistricts';
+            var ddlSource = "#CityID";
+            $.getJSON(url, { CityID: $(ddlSource).val() }, function (data) {
+                var items = '';
+                $('#DistrictID').empty();
+                $.each(data, function (i, district) {
+                    items += "<option value='" + district.value + "'>" + district.text + "</option>";
+                });
+                $('#DistrictID').html(items);
+            });
+        });
+    });
+</script>

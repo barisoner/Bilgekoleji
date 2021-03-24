@@ -1,0 +1,26 @@
+﻿
+@model IEnumerable<Panel>
+
+@foreach (var item in Model)
+{
+    <div class="card-group">
+        <div class="card">
+            <img src="~/img/@item.Image" width="375" height="360"/>
+            <div class="card-body">
+                <h5 class="card-title">@item.Title</h5>
+                <p class="card-text">@item.Description</p>
+                <p class="card-text"><small class="text-muted">Last Updated @item.ID hours ago.</small></p>
+                <a asp-action="Details" asp-controller="Home" asp-route-id="@item.ID"><button type="button" class="btn btn-success">Update</button></a>
+                <a asp-action="Delete" asp-controller="Home" asp-route-id="@item.ID"><button type="button" class="btn btn-danger">Delete</button></a>
+            </div>
+        </div>
+    </div>
+}
+<br />
+<img src="~/img/pic_1598178078_1a25d15b50c6ad7544dfda43645fbeb1.jpeg" class="img-fluid" alt="...">
+<br />
+
+<div class="align-self-center">
+    <a asp-action="Create" asp-controller="Home"><button type="button" class="btn btn-info">+Blok Ekle+</button></a>
+</div>
+

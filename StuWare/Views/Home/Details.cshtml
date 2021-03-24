@@ -1,0 +1,34 @@
+﻿@model Panel
+
+<div class="container">
+    <h2>Güncelleme Ekranı</h2>
+
+    <form asp-controller="Home" asp-action="Details" method="post" enctype="multipart/form-data">
+
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
+        <div class="mb-3">
+            <label asp-for="ID" class="form-label">No</label>
+            <input asp-for="ID" readonly="readonly" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label>Resim</label>
+            <input type="file" name="file" id="file" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Title" class="form-label">Başlık</label> <span asp-validation-for="Title" class="text-danger"></span>
+            <input asp-for="Title" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Description" class="form-label">Açıklama</label> <span asp-validation-for="Description" class="text-danger"></span>
+            <textarea asp-for="Description" class="form-control"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Güncelle</button>
+
+    </form>
+
+</div>

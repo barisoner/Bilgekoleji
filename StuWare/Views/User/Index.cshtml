@@ -1,0 +1,45 @@
+﻿@{
+    Layout = null;
+    
+}
+
+@model User
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+
+    <title>Signin Template for Bootstrap</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/sign-in/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="~/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="~/lib/styles/signin.css" rel="stylesheet" />
+
+</head>
+
+<body class="text-center">
+    <form class="form-signin" asp-controller="User" asp-action="Login" method="post">
+        <img class="mb-4" src="~/lib/images/logo.PNG" alt="">
+        <h1 class="h3 mb-3 font-weight-normal">Lütfen giriş yapınız.</h1>
+        <label class="alert-danger">@TempData["Error"]</label>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input asp-for="Email" type="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
+        <label for="inputPassword" class="sr-only">Şifre</label>
+        <input asp-for="Password" type="password" id="inputPassword" class="form-control" placeholder="Şifre" required>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Giriş</button>
+        <br />
+        <a asp-action="Create" asp-controller="User"><button type="button" class="btn btn-info">Kayıt Ol</button></a>
+        <br />
+        <p class="mt-5 mb-3 text-muted">&copy; (2021-2022) Developed by Barış Öner</p>
+
+    </form>
+</body>
+</html>

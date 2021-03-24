@@ -1,0 +1,37 @@
+﻿@model Lesson
+
+<div class="container">
+    <h2>Güncelleme Ekranı</h2>
+
+    <form asp-controller="Lesson" asp-action="Details" method="post">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="mb-3">
+            <label asp-for="ID" class="form-label">No</label>
+            <input asp-for="ID" readonly="readonly" class="form-control"> 
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Class" class="form-label">Sınıf</label> <span asp-validation-for="Class" class="text-danger"></span>
+            <input asp-for="Class" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label">İsim</label> <span asp-validation-for="Name" class="text-danger"></span>
+            <input asp-for="Name" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="TeacherID" class="form-label">Öğretmen Adı</label>
+            <select asp-for="TeacherID" class="form-control" asp-items="@(new SelectList(@ViewBag.ListOfTeachers,"ID","Name"))">
+                <option disabled selected value="">Seçin</option>
+            </select>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">Güncelle</button>
+
+    </form>
+
+</div>

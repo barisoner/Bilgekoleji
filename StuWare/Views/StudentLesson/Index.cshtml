@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Lesson>
+
+    <h3>Ders Programı</h3>
+    <br />
+
+<table class="table">
+    <thead class="table-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">DersAdı</th>
+            <th scope="col">Sınıf</th>
+            <th scope="col">Ders Ata</th>
+            <th scope="col">Not</th>
+            <th scope="col">Atanmış Dersi Kaldır</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <th scope="row">@item.ID</th>
+            <td>@item.Name</td>
+            <td>@item.Class</td>
+
+            @if (!(ViewBag.SelectedClassLists as List<int>).Contains(item.ID))
+            {
+                <td>
+
+                    <a asp-action="Create" asp-controller="StudentLesson" asp-route-id="@item.ID">
+                        Dersi Ata
+                    </a>
+
+                </td>
+
+                <td>
+                    Bu ders atanmamıştır.
+                </td>
+                <td>
+                   
+                     
+
+                 
+                </td>
+
+            }
+            else
+            {
+                <td>
+                    Bu ders atanmıştır.
+                </td>
+
+                <td>
+                    <a asp-action="Index" asp-controller="Grade" asp-route-id="@item.StudentLessons.Where(s=>s.LessonID.Equals(item.ID) && s.StudentID.Equals(ViewBag.selectedStudentId)).FirstOrDefault().ID">
+                        Not Gir
+                    </a>
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-controller="StudentLesson" asp-route-id="@item.ID" onclick="return confirm('Atanmış dersi kaldırdığınızda giriş yapılan tüm notlar silinecektir. Devam etmek istediğinize emin misiniz?')">
+                        Atanmış Dersi Kaldır
+                    </a>
+                </td>
+            }
+
+
+        </tr>
+        }
+
+    </tbody>
+</table>
+

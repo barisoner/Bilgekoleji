@@ -78,6 +78,7 @@ namespace StuWare.Data.Migrations
                 name: "IX_Students_DistrictID",
                 table: "Students",
                 column: "DistrictID");
+        
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

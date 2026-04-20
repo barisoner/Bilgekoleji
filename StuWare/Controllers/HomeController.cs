@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StuWare.Data.Migrations;
 using StuWare.Data.Repository;
@@ -15,15 +15,29 @@ namespace StuWare.Controllers
     public class HomeController : StuwareController
     {
 
-        private IPanelRepository _panelRepository;
+        private readonly IPanelRepository _panelRepository;
+        private readonly IStudentRepository _studentRepository;
+        private readonly ITeacherRepository _teacherRepository;
+        private readonly ILessonRepository _lessonRepository;
 
-        public HomeController(IPanelRepository panelRepository)
+        public HomeController(
+            IPanelRepository panelRepository,
+            IStudentRepository studentRepository,
+            ITeacherRepository teacherRepository,
+            ILessonRepository lessonRepository)
         {
             _panelRepository = panelRepository;
+            _studentRepository = studentRepository;
+            _teacherRepository = teacherRepository;
+            _lessonRepository = lessonRepository;
         }
 
         public IActionResult Index()
         {
+            ViewBag.StudentCount = _studentRepository.Students.Count();
+            ViewBag.TeacherCount = _teacherRepository.Teachers.Count();
+            ViewBag.CourseCount = _lessonRepository.Lessons.Count();
+
             return View(_panelRepository.Panels);
         }
 
@@ -45,6 +59,7 @@ namespace StuWare.Controllers
             }
 
             entity.Image = file.FileName;
+            entity.UpdatedDate = DateTime.Now;
 
             if (ModelState.IsValid)
             {
@@ -57,9 +72,29 @@ namespace StuWare.Controllers
             }
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
         {
-            _panelRepository.DeletePanel(id);
+            var panel = _panelRepository.GetById(id);
+            if (panel != null)
+            {
+                if (!string.IsNullOrWhiteSpace(panel.Image))
+                {
+                    var safeFileName = Path.GetFileName(panel.Image);
+                    if (!string.IsNullOrEmpty(safeFileName))
+                    {
+                        var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", safeFileName);
+                        if (System.IO.File.Exists(imagePath))
+                        {
+                            System.IO.File.Delete(imagePath);
+                        }
+                    }
+                }
+
+                _panelRepository.DeletePanel(id);
+            }
+
             return RedirectToAction("Index");
         }
 
@@ -80,6 +115,7 @@ namespace StuWare.Controllers
             }
 
             entity.Image = file.FileName;
+            entity.UpdatedDate = DateTime.Now;
 
             if (ModelState.IsValid)
             {

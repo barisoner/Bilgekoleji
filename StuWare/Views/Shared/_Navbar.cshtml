@@ -1,32 +1,55 @@
-﻿@using Microsoft.AspNetCore.Http;
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+@using Microsoft.AspNetCore.Http
+@{
+    var username = Context.Session.GetString("Username");
+    var email = Context.Session.GetString("Email");
+    var displayName = string.IsNullOrWhiteSpace(username) ? null : username.Trim();
+    var initial = !string.IsNullOrEmpty(displayName) ? char.ToUpperInvariant(displayName[0]).ToString() : "?";
+}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
     <div class="container-fluid">
-
-        <a class="navbar-brand" href="#">
-            <img src="~/lib/images/logoFontt.PNG" />
+        <a class="navbar-brand d-flex align-items-center py-0 mr-3" asp-controller="Home" asp-action="Index">
+            <img src="~/lib/images/logoFontt.PNG" alt="Logo" class="d-inline-block align-top" style="max-height: 40px; width: auto;" />
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Menüyü aç">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
+        <div class="collapse navbar-collapse" id="navbarMain">
+            <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" asp-controller="Home" asp-action="Index">Anasayfa</a>
+                    <a class="nav-link" asp-controller="Home" asp-action="Index">Anasayfa</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navDefinitions" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Tanımlamalar
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" asp-controller="Student" asp-action="Index">Öğrenci Tanımlamaları</a></li>
-                        <li><a class="dropdown-item" asp-controller="Teacher" asp-action="Index">Öğretmen Tanımlamaları</a></li>
-                        <li><a class="dropdown-item" asp-controller="Lesson" asp-action="Index">Ders Tanımlamaları</a></li>
-                    </ul>
+                    <div class="dropdown-menu shadow border-0" aria-labelledby="navDefinitions">
+                        <a class="dropdown-item" asp-controller="Student" asp-action="Index">Öğrenci Tanımlamaları</a>
+                        <a class="dropdown-item" asp-controller="Teacher" asp-action="Index">Öğretmen Tanımlamaları</a>
+                        <a class="dropdown-item" asp-controller="Lesson" asp-action="Index">Ders Tanımlamaları</a>
+                    </div>
                 </li>
             </ul>
-        </div>
-        <div>
-            Hoşgeldiniz @Context.Session.GetString("Username") <a asp-action="Logout" asp-controller="User">Çıkış</a>
+            <ul class="navbar-nav ml-auto align-items-lg-center">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle d-flex align-items-center py-lg-2" href="#" id="userMenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="rounded-circle bg-secondary text-white d-inline-flex align-items-center justify-content-center mr-2 flex-shrink-0" style="width: 34px; height: 34px; font-size: 0.9rem; font-weight: 600;">@initial</span>
+                        <span class="text-truncate" style="max-width: 10rem;">@(displayName ?? "Misafir")</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right shadow border-0 mt-0 mt-lg-1" aria-labelledby="userMenu">
+                        <h6 class="dropdown-header text-uppercase small text-muted mb-0">Oturum</h6>
+                        @if (!string.IsNullOrEmpty(displayName))
+                        {
+                            <span class="dropdown-item-text font-weight-bold">@displayName</span>
+                        }
+                        @if (!string.IsNullOrEmpty(email))
+                        {
+                            <span class="dropdown-item-text small text-muted pb-2">@email</span>
+                        }
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item text-danger font-weight-bold" asp-controller="User" asp-action="Logout">Çıkış</a>
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>

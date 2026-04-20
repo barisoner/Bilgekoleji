@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -17,5 +17,7 @@ namespace StuWare.Model
         [Required(ErrorMessage = "Açıklama Ekleyiniz")]
         [StringLength(255, MinimumLength = 0, ErrorMessage = ("Açıklama en fazla 255 karakterli olmalı"))]
         public string Description { get; set; }
+
+        public DateTime UpdatedDate { get; set; }
     }
 }

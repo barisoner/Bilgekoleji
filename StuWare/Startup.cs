@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -19,7 +19,7 @@ namespace StuWare
             services.AddSession();
             services.AddMvc();
             services.AddDbContext<StuWareContext>(option => option.UseLazyLoadingProxies()
-            .UseSqlServer("Server = (localdb)\\MSSQLLocalDB; Database = StuWareDB; Trusted_Connection = True;MultipleActiveResultSets = True"));
+            .UseSqlServer("Server = .; Database = StuWareDB; Trusted_Connection = True; MultipleActiveResultSets = True; TrustServerCertificate = True"));
          
             services.AddControllers(options => options.EnableEndpointRouting = false);
 
